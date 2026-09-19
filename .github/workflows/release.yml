@@ -54,8 +54,19 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
-      - name: Make Gradle Executable
-        run: chmod +x ./gradlew
+      - name: Validate or Recreate Gradle Wrapper
+        run: |
+          mkdir -p gradle/wrapper
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ] || ! jar tf gradle/wrapper/gradle-wrapper.jar >/dev/null 2>&1; then
+            echo "⚠️ Gradle wrapper jar is missing or corrupted. Downloading fresh wrapper jar..."
+            rm -f gradle/wrapper/gradle-wrapper.jar
+            curl -sSL -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v9.3.1/gradle/wrapper/gradle-wrapper.jar || \
+            curl -sSL -o gradle/wrapper/gradle-wrapper.jar https://github.com/gradle/gradle/raw/v9.3.1/gradle/wrapper/gradle-wrapper.jar
+            echo "Fresh gradle-wrapper.jar restored."
+          else
+            echo "✅ Gradle wrapper jar is valid."
+          fi
+          chmod +x ./gradlew
 
       - name: Setup Environment File
         run: |
