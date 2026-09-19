@@ -7,19 +7,6 @@ plugins {
   alias(libs.plugins.secrets) apply false
 }
 
-tasks.register<Copy>("copyApk") {
-    dependsOn(":app:assembleDebug")
-    from(file("app/build/outputs/apk/debug/app-debug.apk"))
-    into(projectDir)
-    rename { "grixchat.apk" }
-}
-
-tasks.register<Copy>("copyApkWithOriginalName") {
-    dependsOn("copyApk")
-    from(file("app/build/outputs/apk/debug/app-debug.apk"))
-    into(file("output"))
-}
-
 
 
 
