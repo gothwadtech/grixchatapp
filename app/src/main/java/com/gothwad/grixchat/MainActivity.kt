@@ -263,7 +263,6 @@ fun GrixChatScreen(viewModel: GrixViewModel, isDarkTheme: Boolean) {
                                 settings.apply {
                                     javaScriptEnabled = true
                                     domStorageEnabled = true
-                                    databaseEnabled = true
                                     allowFileAccess = true
                                     allowContentAccess = true
                                     setGeolocationEnabled(true) // Enable Web Geolocation support

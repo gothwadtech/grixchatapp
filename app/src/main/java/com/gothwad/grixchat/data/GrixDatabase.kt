@@ -24,7 +24,7 @@ abstract class GrixDatabase : RoomDatabase() {
                     GrixDatabase::class.java,
                     "grixchat_database"
                 )
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigration(dropAllTables = true)
                 .build()
                 INSTANCE = instance
                 instance
